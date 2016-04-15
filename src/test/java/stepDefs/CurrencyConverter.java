@@ -3,6 +3,8 @@ package stepDefs;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import pageobjects.CurrencyConverterPage;
@@ -30,22 +32,28 @@ public class CurrencyConverter {
         action.moveToElement(HomePage.fxTravelMigrantLink(driver)).build().perform();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         HomePage.currencyConverterButton(driver).click();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @When("^I enter '(.*?)' to the Enter Amount field$")
     public void enterAmount(String amount) {
+        driver.switchTo().frame(driver.findElement(By.id("westpac-iframe")));
         CurrencyConverterPage.enterAmountField(driver).sendKeys(amount);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.switchTo().defaultContent();
     }
 
     @When("^I click on the Convert button$")
     public void clickConvertButton() {
-
+        driver.switchTo().frame(driver.findElement(By.id("westpac-iframe")));
+        CurrencyConverterPage.convertButton(driver).click();
+        driver.switchTo().defaultContent();
     }
 
     @Then("^I should be able to see the following error messages$")
-    public void I_should_be_able_to_see_the_following_error_messages(String arg1) {
+    public void verifyCorrectErrorMessageIsDisplayed(String errorMessage) {
+        driver.switchTo().frame(driver.findElement(By.id("westpac-iframe")));
+        Assert.assertEquals(CurrencyConverterPage.amountMissingErrorMessage(driver).getText().toLowerCase().trim(),
+                errorMessage.toLowerCase());
+        driver.switchTo().defaultContent();
     }
 
 }

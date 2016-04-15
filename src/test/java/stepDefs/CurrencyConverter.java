@@ -5,6 +5,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import pageobjects.CurrencyConverterPage;
 import pageobjects.HomePage;
 
 import java.util.concurrent.TimeUnit;
@@ -34,11 +35,13 @@ public class CurrencyConverter {
 
     @When("^I enter '(.*?)' to the Enter Amount field$")
     public void enterAmount(String amount) {
-
+        CurrencyConverterPage.enterAmountField(driver).sendKeys(amount);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @When("^I click on the Convert button$")
-    public void I_click_on_the_Convert_button() {
+    public void clickConvertButton() {
+
     }
 
     @Then("^I should be able to see the following error messages$")

@@ -16,6 +16,7 @@ public class Hooks {
     @Before
     public void openBrowser() throws MalformedURLException {
         driver = new FirefoxDriver();
+        driver.manage().window().maximize();
     }
 
     @After

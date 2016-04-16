@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import pageobjects.CurrencyConverterPage;
 import pageobjects.HomePage;
 
@@ -56,4 +57,26 @@ public class CurrencyConverter {
         driver.switchTo().defaultContent();
     }
 
+    @When("^I select (.*?) from Convert From Drop Down$")
+    public void selectConvertFromDropDownValue(String convertFromValue) {
+        driver.switchTo().frame(driver.findElement(By.id("westpac-iframe")));
+        Select select = new Select(CurrencyConverterPage.convertFromDropDown(driver));
+        select.selectByVisibleText(convertFromValue);
+        driver.switchTo().defaultContent();
+    }
+
+    @When("^I select (.*?) from the Convert To Drop DOwn$")
+    public void selectConvertToDropDownValue(String convertToValues) {
+        driver.switchTo().frame(driver.findElement(By.id("westpac-iframe")));
+        Select select = new Select(CurrencyConverterPage.convertToDropDown(driver));
+        select.selectByVisibleText(convertToValues);
+        driver.switchTo().defaultContent();
+    }
+
+    @Then("^I should be able to see correct results for the currency conversion in currency converter page$")
+    public void verifyCurrencyConversionResultsDisplayed() {
+        driver.switchTo().frame(driver.findElement(By.id("westpac-iframe")));
+        Assert.assertEquals(CurrencyConverterPage.conversionResults(driver).isDisplayed(), true);
+        driver.switchTo().defaultContent();
+    }
 }

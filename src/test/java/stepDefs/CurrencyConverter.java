@@ -6,12 +6,13 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageobjects.CurrencyConverterPage;
 import pageobjects.HomePage;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by isham on 4/15/2016.
@@ -31,8 +32,8 @@ public class CurrencyConverter {
 
         Actions action = new Actions(driver);
         action.moveToElement(HomePage.fxTravelMigrantLink(driver)).build().perform();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        HomePage.currencyConverterButton(driver).click();
+        WebElement element = (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(HomePage.currencyConverterButton(driver)));
+        element.click();
     }
 
     @When("^I enter '(.*?)' to the Enter Amount field$")
@@ -73,7 +74,9 @@ public class CurrencyConverter {
         driver.switchTo().defaultContent();
     }
 
-    @Then("^I should be able to see correct results for the currency conversion in currency converter page$")
+    //Code only verifies whether the conversion results are displayed. Doesn't verify whether
+    //correct results are displayed
+    @Then("^I should be able to see results for the currency conversion in currency converter page$")
     public void verifyCurrencyConversionResultsDisplayed() {
         driver.switchTo().frame(driver.findElement(By.id("westpac-iframe")));
         Assert.assertEquals(CurrencyConverterPage.conversionResults(driver).isDisplayed(), true);

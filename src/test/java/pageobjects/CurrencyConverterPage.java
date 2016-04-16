@@ -11,6 +11,7 @@ import stepDefs.Hooks;
  * Page Objects for Currency Converter page
  */
 public class CurrencyConverterPage {
+
     public WebDriver driver;
 
     private static WebElement element;

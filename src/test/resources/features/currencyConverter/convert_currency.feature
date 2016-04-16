@@ -9,7 +9,7 @@ Feature: Convert Currency A to a Currency B
     And I select <Currency B> from the Convert To Drop DOwn
     And I enter '<Amount>' to the Enter Amount field
     And I click on the Convert button
-    Then I should be able to see correct results for the currency conversion in currency converter page
+    Then I should be able to see results for the currency conversion in currency converter page
 
     Examples:
      | Currency A          | Currency B          | Amount |

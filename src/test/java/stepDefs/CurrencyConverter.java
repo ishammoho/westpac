@@ -38,9 +38,11 @@ public class CurrencyConverter {
 
     @When("^I enter '(.*?)' to the Enter Amount field$")
     public void enterAmount(String amount) {
-        driver.switchTo().frame(driver.findElement(By.id("westpac-iframe")));
-        CurrencyConverterPage.enterAmountField(driver).sendKeys(amount);
-        driver.switchTo().defaultContent();
+        if (!amount.trim().equals("No value")) {
+            driver.switchTo().frame(driver.findElement(By.id("westpac-iframe")));
+            CurrencyConverterPage.enterAmountField(driver).sendKeys(amount);
+            driver.switchTo().defaultContent();
+        }
     }
 
     @When("^I click on the Convert button$")

@@ -1,7 +1,7 @@
 Feature: Convert Currency A to a Currency B
   As a Westpac user
   I want to convert currency A to a Currency B and vice versa with the currency converter
-  So that I can get an indication of the exchange rates and make an informed decision on my foregn transactions
+  So that I can get an indication of the exchange rates and make an informed decision on my foreign transactions
 
   Scenario Outline: Convert currency A to B
     Given I am on currency converter page

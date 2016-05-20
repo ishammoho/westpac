@@ -3,7 +3,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @Cucumber.Options(format = { "pretty", "html:target/cucumber-html-report",
-        "json:target/cucumber-json-report.json" }, tags= {"@Sum"},
+        "json:target/cucumber-json-report.json" },
         features="src/test/resources")
 public class runCukeTest {
 
